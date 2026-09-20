@@ -1,26 +1,23 @@
 #!/bin/bash
+set -euo pipefail
 
-# Create models directory (just in case)
 mkdir -p /models
 
-# Download the model if it doesn't exist and MODEL_URL is provided
-if [ ! -f "/models/model.gguf" ] && [ -n "${MODEL_URL}" ]; then
-    echo "📥 Downloading model from ${MODEL_URL} ..."
-    curl -L --progress-bar -o /models/model.gguf "${MODEL_URL}"
-    
-    if [ $? -eq 0 ]; then
-        echo "✅ Download completed: /models/model.gguf"
-        echo "   Size: $(du -h /models/model.gguf | cut -f1)"
-    else
-        echo "❌ Download failed!"
+if [ ! -f "/models/model.gguf" ] && [ -n "${MODEL_URL:-}" ]; then
+    echo "Downloading model from MODEL_URL ..."
+    curl -fL --progress-bar -o /models/model.gguf "${MODEL_URL}"
+    size=$(wc -c < /models/model.gguf | tr -d ' ')
+    if [ "${size}" -lt 1000000 ]; then
+        echo "Download looks too small (${size} bytes) — aborting"
+        rm -f /models/model.gguf
         exit 1
     fi
+    echo "Download completed: /models/model.gguf ($(du -h /models/model.gguf | cut -f1))"
 elif [ -f "/models/model.gguf" ]; then
-    echo "✅ Model already exists at /models/model.gguf"
+    echo "Model already exists at /models/model.gguf"
 else
-    echo "⚠️  No MODEL_URL provided and no model found. llama-server may fail to start."
+    echo "No MODEL_URL and no /models/model.gguf — llama-server may fail to start."
 fi
 
-# Execute llama-server with all arguments from CMD + any extra args
-echo "🚀 Starting llama-server on port 8080..."
+echo "Starting llama-server ..."
 exec /app/llama-server "$@"
