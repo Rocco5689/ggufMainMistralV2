@@ -7,9 +7,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl \
 
 RUN mkdir -p /models
 
-# Default model: TinyLlama 1.1B Chat Q2_K (not baked into the image)
+# Default model: TinyLlama 1.1B Chat Q2_K via Azure Blob SAS (not baked into the image)
 # Override at runtime with -e MODEL_URL=... or mount a file at /models/model.gguf
-ENV MODEL_URL="https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q2_K.gguf"
+ENV MODEL_URL="https://ggufstor5566stor.blob.core.windows.net/models/tinyllama-1.1b-chat-v1.0.Q2_K.gguf?se=2026-09-27T22%3A21Z&sp=r&spr=https&sv=2022-11-02&sr=b&sig=juqwE1MDXcmfcjH8OmwaVebMcg3G9DOtY7g%2BAplEWBc%3D"
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
