@@ -1,0 +1,3 @@
+# Never commit GGUF weights — mount from disk or download via MODEL_URL
+*.gguf
+models/*.gguf
