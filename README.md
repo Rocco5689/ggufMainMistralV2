@@ -5,7 +5,7 @@ llama.cpp CUDA server image sources (V2). Default test model is **TinyLlama 1.1B
 ## MODEL_URL (primary)
 
 ```
-https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q2_K.gguf
+https://ggufstor5566stor.blob.core.windows.net/models/tinyllama-1.1b-chat-v1.0.Q2_K.gguf?se=2026-09-27T22%3A21Z&sp=r&spr=https&sv=2022-11-02&sr=b&sig=juqwE1MDXcmfcjH8OmwaVebMcg3G9DOtY7g%2BAplEWBc%3D
 ```
 
 Local copy on Mac (already downloaded):
@@ -29,18 +29,13 @@ docker run --rm -p 8080:8080 \
 
 ```bash
 docker run --rm -p 8080:8080 \
-  -e MODEL_URL="https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q2_K.gguf" \
+  -e MODEL_URL="https://ggufstor5566stor.blob.core.windows.net/models/tinyllama-1.1b-chat-v1.0.Q2_K.gguf?se=2026-09-27T22%3A21Z&sp=r&spr=https&sv=2022-11-02&sr=b&sig=juqwE1MDXcmfcjH8OmwaVebMcg3G9DOtY7g%2BAplEWBc%3D" \
   <your-image>
 ```
 
 ## Other MODEL_URL options (legacy / larger)
 
 - https://huggingface.co/bartowski/cognitivecomputations_Dolphin3.0-R1-Mistral-24B-GGUF/resolve/main/cognitivecomputations_Dolphin3.0-R1-Mistral-24B-Q5_K_S.gguf (~16 GB)
-- https://ggufstor5566stor.blob.core.windows.net/gguf/mymodel.gguf
-- https://huggingface.co/mradermacher/MN-Violet-Lotus-12B-GGUF/resolve/main/MN-Violet-Lotus-12B.Q5_K_M.gguf
-
-## Docker Hub Repository
-- cavallo5689/llama-gguf-server:v4
 
 ## Volume mount path
 - `/models`
